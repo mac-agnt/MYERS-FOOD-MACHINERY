@@ -12,6 +12,11 @@
 <script src="./vendor/react.production.min.js"></script>
 <script src="./vendor/react-dom.production.min.js"></script>
 <script src="./support.js"></script>
+<!-- Myers Service OS modules (front end only), shown over the main area for the OS:* rail items. -->
+<script src="./myers-os-core.js"></script>
+<script src="./myers-os-ui.js"></script>
+<script src="./myers-os-pages-a.js"></script>
+<script src="./myers-os-pages-b.js"></script>
 </head>
 <body>
 <x-dc>
@@ -186,7 +191,7 @@ nav{scrollbar-width:none}
 @keyframes rowIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @keyframes tickPulse{0%,55%{opacity:1}78%,100%{opacity:.22}}
 </style></helmet>
-<div data-theme="{{ theme }}" style="position:relative;display:flex;height:100vh;overflow:hidden;background:var(--bg);color:var(--ink)">
+<div data-theme="{{ theme }}" style="position:relative;display:flex;height:100vh;overflow:hidden;overflow:clip;background:var(--bg);color:var(--ink)">
 <div style="position:absolute;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none"><dc-import name="AgentFace" shape="crown-pebble" state="idle" tint="#191c1f" size="1" hint-size="1px,1px"></dc-import></div>
 <div style="position:absolute;z-index:0;top:-220px;left:180px;width:720px;height:620px;border-radius:50%;background:radial-gradient(circle,var(--glow-a),transparent 70%);filter:blur(40px);pointer-events:none"></div>
 
@@ -2989,6 +2994,16 @@ const ICONS = {
   tree:"M4.5 6h5 M4.5 12h5 M4.5 18h5 M12.5 6h7 M12.5 12h7 M12.5 18h7",
   graph:"M7 7.4a2.4 2.4 0 1 0 0-4.8 2.4 2.4 0 0 0 0 4.8Z M17.6 10.4a2.4 2.4 0 1 0 0-4.8 2.4 2.4 0 0 0 0 4.8Z M9.4 21.4a2.4 2.4 0 1 0 0-4.8 2.4 2.4 0 0 0 0 4.8Z M8.6 6.4l7.6 2.6 M15.8 11.4l-5.6 5.2",
   bell:"M6 8.5a6 6 0 0 1 12 0c0 6.5 2.6 8.5 2.6 8.5H3.4S6 15 6 8.5Z M10.3 20.5a1.94 1.94 0 0 0 3.4 0",
+  osTower:"M3.5 20h17 M6 20V9.5l6-4.5 6 4.5V20 M9.5 20v-5h5v5 M12 5V2.8",
+  osDesk:"M4 5.5h16v10H4z M9 19.5h6 M12 15.5v4 M7.5 9.5l3 2 6-4",
+  osDispatch:"M4 6h9 M4 12h6 M4 18h11 M16.5 4.5l3 3-3 3 M13.5 10.5l-3 3 3 3",
+  osField:"M8 2.8h8a1.6 1.6 0 0 1 1.6 1.6v15.2a1.6 1.6 0 0 1-1.6 1.6H8a1.6 1.6 0 0 1-1.6-1.6V4.4A1.6 1.6 0 0 1 8 2.8Z M10.5 18h3 M9.5 8.5l1.8 1.8 3.4-3.4",
+  osTime:"M12 21a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17Z M12 7.5v5l3.2 2",
+  osWorkshop:"M3.5 20h17 M5 20v-7l7-4 7 4v7 M9 20v-4.5h6V20 M12 9V4.5 M9.5 4.5h5",
+  osMoney:"M5 4.5h10l4 4v11H5z M14.5 4.8v4h4 M8.5 12.5h7 M8.5 16h5",
+  osParts:"M12 3 20 7.5v9L12 21l-8-4.5v-9L12 3Z M4 7.5l8 4.5 8-4.5 M12 12v9",
+  osWarranty:"M12 3 19.5 6v6c0 4.2-3.1 7.2-7.5 8.7C7.6 19.2 4.5 16.2 4.5 12V6L12 3Z M8.8 12l2.2 2.2 4.2-4.4",
+  osAssets:"M4 8.5h16v10H4z M7.5 8.5V6a1.5 1.5 0 0 1 1.5-1.5h6A1.5 1.5 0 0 1 16.5 6v2.5 M8 13h3 M14.5 13a1 1 0 1 0 0 .01",
   navService:"M14.7 6.3a4 4 0 0 0-5.2 5.2L4 17v3h3l5.5-5.5a4 4 0 0 0 5.2-5.2l-2.6 2.6-2.4-.6-.6-2.4 2.6-2.6Z"
 };
 
@@ -3664,11 +3679,23 @@ const STREAM_DEFS = [
 
 const NAV = [
   {label:"Home", icon:"helios", page:"Home"},
-  {label:"Agents", icon:"navAgents", page:"Agents"},
-  {label:"Dashboard", icon:"navDash", page:"Dashboard", dot:true},
-  {label:"Work", icon:"navWork", page:"Work"},
+  {label:"Control Tower", icon:"osTower", page:"OS:tower"},
+  {divider:true},
+  {label:"Service Desk", icon:"osDesk", page:"OS:desk"},
+  {label:"Dispatch", icon:"osDispatch", page:"OS:dispatch"},
+  {label:"Engineer App", icon:"osField", page:"OS:field"},
+  {label:"Time and Travel", icon:"osTime", page:"OS:time"},
+  {label:"Workshop", icon:"osWorkshop", page:"OS:workshop"},
+  {label:"Quotes and Invoicing", icon:"osMoney", page:"OS:commercial"},
+  {label:"Parts and Vans", icon:"osParts", page:"OS:parts"},
+  {label:"Warranty", icon:"osWarranty", page:"OS:warranty"},
+  {label:"Machine Register", icon:"osAssets", page:"OS:assets"},
+  {divider:true},
   {label:"Service", icon:"navService", page:"Service", dot:true},
+  {label:"Work", icon:"navWork", page:"Work"},
   {label:"Records", icon:"navRecords", page:"Records"},
+  {label:"Dashboard", icon:"navDash", page:"Dashboard", dot:true},
+  {label:"Agents", icon:"navAgents", page:"Agents"},
   {label:"Activity", icon:"pulseLine", page:"Activity", dot:true}
 ];
 const SVC_SECTIONS = [["jobs","Jobs"],["dispatch","Dispatch"],["machines","Machines"],["parts","Parts"],["sla","SLA Planner"]];
@@ -3832,6 +3859,9 @@ function synthesizeCustomArea(name){
 // fallback instead of landing on an unrelated answer.
 function pickAnswer(q){
   const s = q.toLowerCase();
+  // Service OS answers are built live from its store, so they match the pages after any action.
+  const live = window.MOS && window.MOS.helios ? (window.MOS.init(window.__pulse.data), window.MOS.helios(q)) : null;
+  if (live) return live;
   if (/^confirm\b/.test(s)) return ANSWERS.confirmed;
   if (/\b(propose|assign)\b.*\b(eoin|slane)\b|\bslane\b.*\bassign/.test(s)) return ANSWERS.assign;
   if (/\bbook\b.*\b(slots?|visits?)\b/.test(s)) return ANSWERS.book;
@@ -4363,7 +4393,7 @@ class Component extends DCLogic {
             newRecOpen:false, newRecName:"", newRecTemplate:"Field sheet", newRecCat:"All",
             opsFilter:"all", opsOff:{}, opsOpen:null, opsScope:"week", opsDay:null, opsOrder:null, opsDrag:null,
             opsBuilderOpen:false, opsBuilderMode:"workflow", builderText:"", builderGenerated:false,
-            railOpen:false, barOpen:true, chatRailPinned:false, widgetEdit:false, widgets:["inbox","visits","work","activity"],
+            railOpen:true, barOpen:true, chatRailPinned:false, widgetEdit:false, widgets:["inbox","visits","work","activity"],
             kpiEdit:false, kpiKeys:["revenue","jobs","pm","projects","overdue"],
             aspect:"service", filterMenuOpen:false, customFilter:"", extraFilters:[],
             workWidget:"queue", miniOpen:false, miniThread:[], miniDraft:"", miniTab:"chat", miniTone:"plain", miniWorkOpen:"tasks",
@@ -5018,6 +5048,9 @@ class Component extends DCLogic {
   }
 
   componentDidMount(){
+    // Hand the Service OS modules the same records every other page reads, and a way to navigate.
+    window.__pulse = {go:(p) => this.go(p), page:this.state.page,
+      data:{CUSTOMERS, MACHINES, JOBS, PARTS, MODELS, ENGINEERS, BIZ}};
     this.seedActivity();
     this._actTimer = setInterval(() => { if (this.state.page === "Activity") this.tickActivity(); }, 700);
     this._clockTimer = setInterval(() => { if (this.state.page === "Home") this.forceUpdate(); }, 1000);
@@ -5148,6 +5181,7 @@ class Component extends DCLogic {
      One page shape (stats, views, a list or a board, and a record panel) fed
      from the Myers records. Links in the panel jump across modules by id. */
   openRef(kind, id){
+    if (kind === "os"){ if (window.MOS) window.MOS.nav(id); return; }
     const at = {
       job:["Service", {svcSection:"jobs"}, "jobs"], machine:["Service", {svcSection:"machines"}, "machines"],
       part:["Service", {svcSection:"parts"}, "parts"], sla:["Service", {svcSection:"sla"}, "sla"],
@@ -5660,6 +5694,7 @@ class Component extends DCLogic {
 
   renderVals(){
     const st = this.state, page = st.page;
+    if (window.__pulse){ window.__pulse.page = page; if (window.MOS && window.MOS.sync) window.MOS.sync(page, st.theme); }
     const openKeys = ORDER.filter(k => !st.resolved[k]);
 
     // Equal grid columns (width:max-content + 1fr) let a single thumb glide by

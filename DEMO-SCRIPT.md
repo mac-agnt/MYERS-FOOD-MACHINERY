@@ -48,6 +48,39 @@ No internet needed; React and the fonts are bundled in `vendor/`.
 On a **NEEDS YOUR YES** card, **Confirm** replays the stored arguments and records it in the audit log; **Edit draft** drafts again.
 Anything else gets the "registered tool" reply with buttons for the questions above.
 
+## Service OS walkthrough (Friday, about 10 minutes)
+
+The new rail items between the two dividers are the Service OS: Control Tower, Service Desk, Dispatch, Engineer App, Time and Travel, Workshop, Quotes and Invoicing, Parts and Vans, Warranty, Machine Register. The old Service, Work and Records pages are still below them.
+
+The one line: **enter it once.** The call becomes the job, the job becomes the engineer's job sheet, the job sheet becomes the invoice, the warranty claim, the stock movement and the machine's history.
+
+1. **Control Tower.** "This is the business right now." Team status, today's map, ready to invoice, warranty credits due, workshop.
+2. **Service Desk.** Open Ciara's email (RQ-0612). Customer, machine, fault and urgency are already read from it. Click **Create job**. Show Orla's email (RQ-0615): it flags JOB-2479 as already open, so **Link** instead of creating a duplicate.
+3. **Dispatch.** Click **Auto-plan today**. Read two reason chips aloud (drive time, "Grouped with nearby job", "Labelux trained", "Part in van"). **Confirm plan**, then **Send to phones**. "That replaced Trello and the WhatsApp."
+4. **Engineer App**, Eoin's phone. Open JOB-2477 (Liffey, On site) → **Start job** → tap a diagnosis chip → **Use suggested wording** → add PT-FW500-PE from the van → log the old one → take two photos → **Customer sign-off** → sign with the mouse → **Complete job**. Watch the toasts: van stock down, invoice drafted, machine history updated. "That replaced the triplicate docket."
+5. **Warranty version.** Switch the phone to Martin. JOB-2492 at Shannonside is a warranty job (the TS-400 is 18 months old). On my way → Arrived → Start job → fit PT-TS-SEAL, tag the old one for warranty → sign → complete. A claim to Traymaster appears in **Warranty** under Drafted, with serial, install date, photos and labour already filled in.
+6. **Quotes and Invoicing.** Ready to invoice shows the drafts with lines already built. **Approve and send**, confirm. Synced to Xero.
+7. **Time and Travel.** Eoin's day from 05:31. Then **Tracking and privacy**: only on duty, site arrivals rather than trails, engineers see their own data, 90-day retention, human review only.
+8. **Workshop.** WS-114 is 138% of a fixed-price quote: that is what live costing catches. Open Q-1180 and click **Customer approves (demo)**: WS-113 moves to the bench.
+9. **Parts and Vans / Machine Register** if there is time: the stock grid across the warehouse and every van; a machine record with history, parts, quotes, invoices and claims.
+
+**Reset demo** (top right of any Service OS page) puts every number back. State survives a refresh; closing the tab also resets it.
+
+### New Helios questions (live, they change as you use the pages)
+
+| Ask | Shows |
+|---|---|
+| Plan tomorrow for the engineers | The proposed plan with reasons; scheduling waits for your yes |
+| Where is everyone right now? | On-duty status and last site event per person |
+| What’s ready to invoice? | Drafts built from job sheets, with totals |
+| Which warranty claims are outstanding? | Open credits by manufacturer |
+| What’s in Eoin’s van? (or Sean's, Martin's) | Van stock against minimums |
+| What’s in the workshop? | Each machine, stage, cost against quote |
+| Which quotes are waiting on customers? | Pending quotes and value |
+| Which jobs took longer than planned? | Planned vs actual |
+
+Service OS watch-outs: run it in the morning if you can; "today" slots are planned from now onwards, so late in the day Auto-plan today has little room (use Tomorrow). The map is a simple offline outline, not a street map.
+
 ## Watch out for
 
 - Actions on record panels (Approve courier, Propose Eoin, Chase site readiness) record a proposal; they deliberately do not change the story numbers.

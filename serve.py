@@ -28,6 +28,10 @@ FILES = {
     "/support.js": "support.js",
     "/AgentFace.dc.html": "AgentFace.dc.html",  # fetched by the page for the agent avatars
     "/favicon.svg": "favicon.svg",
+    "/myers-os-core.js": "myers-os-core.js",  # Service OS modules
+    "/myers-os-ui.js": "myers-os-ui.js",
+    "/myers-os-pages-a.js": "myers-os-pages-a.js",
+    "/myers-os-pages-b.js": "myers-os-pages-b.js",
 }
 for folder, _, names in os.walk(os.path.join(HERE, "vendor")):  # offline React + fonts
     for name in names:

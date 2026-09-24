@@ -25,6 +25,12 @@ Pulse is an attached local codebase folder (`Pulse/`), not a GitHub repo. Browse
 - Upcoming dates in the mockup data are computed from today (helpers at the top of the logic script).
 - `DEMO-SCRIPT.md` lists the questions Helios has real answers for.
 
+## Service OS modules (Myers)
+- `myers-os-core.js` (seed data, store, auto-plan, actions, live Helios answers), `myers-os-ui.js` (shell, styles, primitives),
+  `myers-os-pages-a.js` / `-b.js` (the ten modules and record drawers). Plain React.createElement, no build.
+- They render over the main area when the rail page is `OS:<module>`; the page hands over its records via `window.__pulse`.
+- New files must be added to `FILES` in `serve.py`. Plan: `MYERS-SERVICE-OS-PLAN.md`.
+
 ## Conventions the mockups should keep
 - Helios never executes write/external tools; it proposes and waits for a confirmation bound to hashed arguments.
 - The action inbox answers three things per item: what happened, why it matters, what I can do.
