@@ -24,7 +24,18 @@ TYPES = {
     ".woff2": "font/woff2",
 }
 FILES = {
-    "/": "Pulse v4 Glass.dc.html",
+    "/": "myers-pulse.html",  # the €30k production-scope demo
+    "/myers-pulse.html": "myers-pulse.html",
+    "/mp-data.js": "mp-data.js",
+    "/mp-core.js": "mp-core.js",
+    "/mp-ui.js": "mp-ui.js",
+    "/mp-pages-home.js": "mp-pages-home.js",
+    "/mp-pages-service.js": "mp-pages-service.js",
+    "/mp-pages-app.js": "mp-pages-app.js",
+    "/mp-pages-field.js": "mp-pages-field.js",
+    "/mp-pages-assets.js": "mp-pages-assets.js",
+    "/mp-pages-admin.js": "mp-pages-admin.js",
+    "/v4": "Pulse v4 Glass.dc.html",  # the earlier broad demo, kept for reference
     "/support.js": "support.js",
     "/AgentFace.dc.html": "AgentFace.dc.html",  # fetched by the page for the agent avatars
     "/favicon.svg": "favicon.svg",

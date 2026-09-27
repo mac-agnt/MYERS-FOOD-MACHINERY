@@ -7,7 +7,7 @@ URL="http://pulse.localhost:$PORT"
 
 open_demo() { open -a "Google Chrome" "$URL" 2>/dev/null || open "$URL"; }
 
-if curl -s "http://127.0.0.1:$PORT/" | grep -q "<x-dc>"; then
+if curl -s "http://127.0.0.1:$PORT/" | grep -q "Myers Pulse"; then
   echo "Pulse demo already running at $URL"
   open_demo
   exit 0
