@@ -1,70 +1,55 @@
-# Myers Pulse demo script (production scope)
+# Myers Pulse demo script
 
-> Myers runs its service operation through Pulse. Pulse coordinates the work from the customer's request through dispatch,
-> the engineer's phone, parts, machine records and completion. QuickBooks takes over when the work is ready to invoice.
+> Myers can see every machine, customer, engineer, service job, spare part, SLA and installation from one operational system, reducing downtime and keeping nothing trapped in calls, inboxes or job sheets.
 
-All figures are demo data. The demo day is **Monday 28 September 2026** and the story clock starts at **07:02**.
-The clock (top bar) moves forward as the story happens, so every timestamp agrees across screens.
+All figures are demo data, not claimed real figures. Manufacturer names (Nordvak, Traymaster, Weighline, Brodmann, Ferrox, Fillwright, Labelux) are placeholders to swap for the brands Myers actually supplies.
 
 ## Start and stop
 
-1. Double-click **Start Demo.command** (or run `python3 serve.py`). Open **http://pulse.localhost:8080**.
-2. The engineer app on its own, for a real phone on the same machine: **http://pulse.localhost:8080/#/m**.
-3. **Reset demo to 07:02** is in the person menu (top right). State survives a refresh; closing the tab resets it.
-4. The earlier broad demo is still at **/v4**.
+1. Double-click **Start Demo.command**. Chrome opens at **http://pulse.localhost:8080**.
+2. Close that Terminal window when you're done. That stops the demo.
 
-The **Demo story** pill (bottom left) shows the next step; click it to expand all 18 steps. Hide it from the person menu.
+If another demo already holds port 8080, run `python3 serve.py 8097` and open http://pulse.localhost:8097.
+The first time, macOS may ask whether Terminal can access your Downloads folder: click **Allow**.
+No internet needed; React and the fonts are bundled in `vendor/`.
 
-## The walkthrough (about 15 minutes)
+## The three story threads (same numbers everywhere)
 
-1. **Command Centre.** Morning briefing, then the six numbers: 12 jobs today, 7 of 8 engineers, 3 urgent, €14,680 ready for
-   invoice, 4 awaiting parts, the Needs Attention count. Live operations table, engineer map with the 10 km zone.
-2. **Service Desk → RQ-3107.** Paul Byrne's email from Glenmore. AI has read customer, Naas site, LabelPro LP200, serial
-   LP200-48023, high urgency, "likely sensor/alignment issue", the February sensor job, and MX-44721 as the likely part.
-3. **Create job** confirms the AI draft as Job #2491. Nothing happened without a person.
-4. **AI suggestion: Sean Murphy.** Read the reasons aloud: LabelPro certified, Van 04 carries MX-44721, free until 13:15,
-   about 1h 54m away. Show **Choose another** (Aoife is booked at 08:00). Click **Assign**.
-5. **Engineer app** (FIELD). Sean's phone: new job, Navigate, Call customer, Open job, machine history, possible parts.
-6. **Start travel.** A moment later the geofence fires: Sean has left the Myers zone at 07:18, subsistence timer running.
-7. **Arrived** (09:04), **Start job**.
-8. **Add part → Scan label.** Photograph the part bag.
-9. Pulse reads **MX-44721 · Optical Sensor, Label Applicator · B-14-03 · 98.7%**.
-10. **Confirm part.** Read the list: added to the job, Van 04 2 → 1, part history, machine history, label photo stored,
-    and the low-stock flag. Jump to **Parts → MX-44721**: reorder required, available 3, minimum 4, suggested 10 from LabelPro UK.
-    **Create reorder request** (a request and a drafted email; ordering stays in QuickBooks).
-11. Back on the phone: **Take photo**, then **Complete job** with the customer's signature.
-12. **Jobs → #2491.** Completion checks: machine, labour, travel, parts, report, photos, customer confirmation.
-13. Status **Ready for Invoice** with the estimated value.
-14. **Send to QuickBooks** → QB-10428. A few seconds later QuickBooks reports **Invoiced**.
-15. **Sync from QuickBooks** → **Paid**. Pulse reads statuses back; the invoice lives in QuickBooks.
-16. Phone: Sean drives to **Murphy Foods** for a non-billable measurement. The subsistence timer keeps running.
-17. **Head back to base** → **Arrived at base**: 8h 24m away, 5+ hour band, €20.00, calculated automatically.
-    Open **Subsistence → Sean → today** for the timeline and the map.
-18. **Subsistence → Monthly report.** September 2026, filters, Export CSV, Mark reviewed. **Exceptions**: GPS gap, no return
-    detected, manual adjustment. **Rules**: change the radius or a band and watch the figures move.
+| Thread | Numbers | Where it shows |
+|---|---|---|
+| A · Service | 9 open jobs · 3 urgent · 2 awaiting parts · oldest urgent 19h | Home briefing, Service → Jobs, Dashboard, Briefing agent, Activity |
+| B · Preventative maintenance | 27 due in 30 days · 7 this week · 4 unscheduled | Home briefing, Service → SLA Planner, Dispatch, SLA Planner agent |
+| C · Project delivery | 6 active projects · €284,000 · 2 installs this week · 1 blocked | Home briefing, Work → Projects / Installations, Dashboard |
 
-Then, if there is time: **Dispatch** (drag a card, Schedule view), **Machines → LP200-48023** (QR, history, parts),
-**Warranties → W-1062**, **Customers → Glenmore**, **Knowledge** (the golden thread), **Agents**, **Activity**, **Systems**
-(QuickBooks connection and data migration), **Team & Permissions** (View as Stores or Engineer).
+## Suggested walk-through
 
-## Questions Pulse AI answers (Ask Pulse, top right)
+1. **Home.** Read the morning briefing aloud. Click each of the three thread tiles.
+2. **Service → Jobs.** Open JOB-2481 (Carrigdown, 19h). Follow the links: customer → machine → part → wiring diagram.
+3. **Service → Dispatch.** One board per engineer, nationwide. The Unassigned lane holds the urgent Slane Road job and the 4 unbooked PM visits.
+4. **Service → SLA Planner.** 27 rows; switch to Unscheduled (4). Each has a proposed engineer and a reason.
+5. **Work → Installations.** Blackwater is ready (6 of 6); Carrigdown is blocked (4 of 6). Each has commissioning and operator training.
+6. **Records → Customers / Technical Library.** Every account with machines, projects, SLA and history; every model with its four documents.
+7. **Agents.** Seven agents: Briefing, Ops Watchdog, Service Dispatcher, Parts Finder, Machine Expert, Project Coordinator, SLA Planner.
 
-| Ask | Answer shows |
-|---|---|
-| Where is Sean? | Status, place, ETA, time outside the zone, today's jobs |
-| What jobs are still open today? | Open jobs, urgent count, unassigned count |
-| Which engineers have qualified for subsistence this week? | Qualifying days and allowance per engineer |
-| Which parts are below minimum stock? | Lines below van minimum or reorder level; proposes a reorder (needs your yes) |
-| Show me every issue we've had with Glenmore's LP200 | Full machine history, the repeated sensor fault |
-| What jobs are completed but haven't reached QuickBooks? | Review and ready jobs; proposes sending the ready ones (needs your yes) |
-| Which warranty credits are still outstanding? | Open claims by stage, the overdue one |
-| Who is closest to the FreshPak breakdown and qualified? | Ranking by distance and MetalCheck certification |
+## Questions Helios answers
 
-Write actions from AI wait for **NEEDS YOUR YES** with a hash of the exact arguments; confirming records it in Activity.
+| Ask | Helios shows | Key words it listens for |
+|---|---|---|
+| What service jobs are open? | 9 open, the 3 urgent ones in a table | jobs, urgent, breakdown, engineer, service |
+| What maintenance is due this week? | 27 due, 7 this week, the 4 unscheduled with proposed engineers | maintenance, PM, SLA, due |
+| Which jobs are waiting on parts? | The 2 jobs, their parts and arrival | parts, stock, spares |
+| How are the installations going? | 6 projects, €284,000, Carrigdown blocked | install, project, commissioning |
+| Show me the Carrigdown tray sealer history | Serial, warranty, open job, documents | history, serial, machine, manual |
+| Who owes us money? | €71,800 overdue, top three accounts | owe, debt, money |
+| Draft an update to Carrigdown Poultry | A write tool: drafts it and waits for your yes | draft, update, email, chase |
+| Propose Eoin for Slane Road | A write tool: assignment waits for your yes | propose / assign + Eoin or Slane |
+| Book the proposed slots | A write tool: 4 PM offers wait for your yes | book + slots / visits |
 
-## Watch-outs
+On a **NEEDS YOUR YES** card, **Confirm** replays the stored arguments and records it in the audit log; **Edit draft** drafts again.
+Anything else gets the "registered tool" reply with buttons for the questions above.
 
-- Actions move the story clock forward. Other engineers' days play out as the clock moves (David reaches FreshPak at 08:21,
-  finishes 10:40 and the warranty claim drafts itself for review).
-- If you assign someone other than Sean to #2491, the story still works, but the 07:18 to 15:42 subsistence day is Sean's.
-- Stay in dark mode for the demo; light mode works.
+## Watch out for
+
+- Actions on record panels (Approve courier, Propose Eoin, Chase site readiness) record a proposal; they deliberately do not change the story numbers.
+- Dates are computed from today. "This week" means the next five working days, so late in the week an install can fall on Monday.
+- Stay in dark mode for the demo; light mode works but was checked less.
